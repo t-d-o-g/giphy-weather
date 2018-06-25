@@ -1,0 +1,21 @@
+body {
+  height: 100%;
+  background: var(--light); }
+
+.btn {
+  outline: none;
+  margin: 1rem; }
+
+.btn:focus {
+  outline: 0; }
+
+.btn:hover {
+  cursor: pointer; }
+
+@media (min-width: 576px) {
+  .btn-rows {
+    text-align: left; } }
+
+@media (min-width: 768px) {
+  .btn-rows {
+    text-align: center; } }

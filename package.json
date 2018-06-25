@@ -1,0 +1,24 @@
+{
+  "name": "giphy-weather",
+  "version": "1.0.0",
+  "description": "Weather app using giphy api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "node-sass assets/scss/ -o assets/css/",
+    "sass:watch": "npm run sass && node-sass assets/scss/ -wo assets/css/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t-d-o-g/giphy-weather.git"
+  },
+  "author": "Travis Collins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/t-d-o-g/giphy-weather/issues"
+  },
+  "homepage": "https://github.com/t-d-o-g/giphy-weather#readme",
+  "devDependencies": {
+    "node-sass": "^4.9.0"
+  }
+}
