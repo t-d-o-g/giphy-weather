@@ -26,9 +26,10 @@ if (screenWidth < 576) {
 
 for (var i = 0; i < weatherIcon.length; i++) {
     rowNum = (i  - (i % btnInRow))/btnInRow;
-    weatherBtn = $('<button>').addClass('btn btn-secondary reducefontsize');
+    weatherBtn = $('<button>').addClass('btn btn-secondary btn-font-size');
     weatherBtn.text(prettify(weatherIcon[i]));
     $('#btn-row-'+rowNum).append(weatherBtn);
+    // $('.btn-group').append(weatherBtn);
 }
 
 // https://codereview.stackexchange.com/questions/87221/change-case-of-string-replace-hyphens-with-spaces-and-capitalize-first-letter

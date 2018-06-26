@@ -1,10 +1,22 @@
 body {
-  height: 100%;
+  width: 100%;
   background: var(--light); }
+
+main {
+  margin: 5%; }
+
+.page-header {
+  height: 100%; }
+
+.container {
+  max-width: 100%;
+  overflow-x: hidden; }
 
 .btn {
   outline: none;
-  margin: 1rem; }
+  margin: 1rem;
+  max-width: 100px;
+  white-space: normal; }
 
 .btn:focus {
   outline: 0; }
@@ -12,10 +24,10 @@ body {
 .btn:hover {
   cursor: pointer; }
 
-@media (min-width: 576px) {
-  .btn-rows {
-    text-align: left; } }
+@media (min-width: 300px) {
+  .btn-font-size {
+    font-size: 18px; } }
 
-@media (min-width: 768px) {
-  .btn-rows {
-    text-align: center; } }
+@media (min-width: 600px) {
+  .btn-font-size {
+    font-size: 16px; } }

@@ -1,17 +1,26 @@
 body {
-    height: 100%;
+    width: 100%;
     background: var(--light); 
 }
 
 main {
-    // margin: 5%;
+    margin: 5%;
+}
+
+.page-header {
+    height: 100%;
+}
+
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .btn {
     outline: none;
     margin: 1rem;
     max-width: 100px;
-    // white-space: normal;
+    white-space: normal;
 }
 
 .btn:focus {
@@ -22,26 +31,22 @@ main {
     cursor: pointer;
 }
 
-.reducefontsize{
-    font-size: 5px;
- }
-
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-    .btn-rows {
-        text-align: left;
+// Small devices (landscape phones, 300px and up)
+@media (min-width: 300px) {
+    .btn-font-size {
+        font-size: 18px;
     }
 }
 
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-    .btn-rows {
-        text-align: center;
+// Medium devices (tablets, 600px and up)
+@media (min-width: 600px) {
+    .btn-font-size {
+        font-size: 16px;
     }
 }
 
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {}
+// Large devices (desktops, 900px and up)
+@media (min-width: 900px) {}
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {}
