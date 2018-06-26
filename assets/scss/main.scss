@@ -10,6 +10,8 @@ main {
 .btn {
     outline: none;
     margin: 1rem;
+    max-width: 100px;
+    // white-space: normal;
 }
 
 .btn:focus {
