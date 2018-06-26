@@ -13,16 +13,18 @@ main {
   overflow-x: hidden; }
 
 .btn {
-  outline: none;
   margin: 1rem;
   max-width: 100px;
   white-space: normal; }
 
-.btn:focus {
-  outline: 0; }
-
 .btn:hover {
   cursor: pointer; }
+
+.btn:active {
+  cursor: pointer; }
+
+.still-img {
+  margin: 1rem; }
 
 @media (min-width: 300px) {
   .btn-font-size {
