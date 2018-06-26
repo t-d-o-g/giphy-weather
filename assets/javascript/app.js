@@ -26,7 +26,7 @@ if (screenWidth < 576) {
 
 for (var i = 0; i < weatherIcon.length; i++) {
     rowNum = (i  - (i % btnInRow))/btnInRow;
-    weatherBtn = $('<button>').addClass('btn btn-secondary');
+    weatherBtn = $('<button>').addClass('btn btn-secondary reducefontsize');
     weatherBtn.text(prettify(weatherIcon[i]));
     $('#btn-row-'+rowNum).append(weatherBtn);
 }
