@@ -7,6 +7,14 @@ main {
     margin: 5%;
 }
 
+img {
+    margin: 1rem;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
 .page-header {
     height: 100%;
 }
@@ -30,10 +38,6 @@ main {
     cursor: pointer;
 }
 
-.still-img {
-    margin: 1rem;
-}
-
 // Small devices (landscape phones, 300px and up)
 @media (min-width: 300px) {
     .btn-font-size {
@@ -47,9 +51,3 @@ main {
         font-size: 16px;
     }
 }
-
-// Large devices (desktops, 900px and up)
-@media (min-width: 900px) {}
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {}

@@ -11,7 +11,7 @@ var weatherIcon = [
     "snow",
     "wind",
     "fog"
-], weatherBtn, rowNum, btnInRow, re, key = 'HcEkdzj7Hh7PCuX8qumUU5zJE06iNKTw';
+], weatherBtn, rowNum, btnInRow, re, stillSrcArr = [], gifSrcArr = [], key = 'HcEkdzj7Hh7PCuX8qumUU5zJE06iNKTw';
 
 screenWidth = $(window).width();
 if (screenWidth < 500) {
@@ -28,7 +28,7 @@ for (var i = 0; i < weatherIcon.length; i++) {
     rowNum = (i  - (i % btnInRow))/btnInRow;
     weatherBtn = $('<button>').addClass('btn btn-secondary btn-font-size');
     weatherBtn.text(prettify(weatherIcon[i]));
-    $('#btn-row-'+rowNum).append(weatherBtn);
+    $('#btn-row-' + rowNum).append(weatherBtn);
 }
 
 // https://codereview.stackexchange.com/questions/87221/change-case-of-string-replace-hyphens-with-spaces-and-capitalize-first-letter
@@ -38,27 +38,47 @@ function prettify(str) {
     }).join(' ');
 }
 
+function toggleImg (img) {
+    var imgNum = img.attr('id').match(/\d+/)[0];
+    var imgType = img.attr('id').substr(0, img.attr('id').indexOf('-'));
+
+    if (imgType === 'still') {
+        img.attr('id', 'gif-img-' + imgNum)
+        img.attr('src', gifSrcArr[imgNum]);
+    } else {
+        img.attr('id', 'still-img-' + imgNum)
+        img.attr('src', stillSrcArr[imgNum]);
+    }
+}
+
 $('.btn').on('click', function () {
     $this = $(this);
     $this.blur();
     var query = $this.text();
 
+    $('#img-row').empty();
+
     $.ajax({
         url: 'https://api.giphy.com/v1/gifs/search?api_key=' + key + '&q=' + query + '&limit=10&offset=0&rating=G&lang=en',
         method: 'GET' 
     }).then(function (res) {
-        var stillImgSrcArr = [], gifSrcArr = [], stillImgSrc, gifSrc, stillImg;
+        var stillImgSrc, gifSrc, stillImg;
+        stillSrcArr = [], gifSrcArr = [];
 
         for (var i = 0; i < res.data.length; i++) {
-            stillImgSrc = res.data[i].images["480w_still"].url;
-            gifSrc = res.data[i].images.original.url;
+            stillImgSrc = res.data[i].images.fixed_height_small_still.url;
+            gifSrc = res.data[i].images.fixed_height_small.url;
 
-            stillImgSrcArr.push(stillImgSrc);
+            stillSrcArr.push(stillImgSrc);
             gifSrcArr.push(gifSrc);
 
-            stillImg = $('<img>').attr({'src': stillImgSrc, 'alt': query + ' Still Img'}).addClass('still-img');
+            stillImg = $('<img>').attr({'src': stillImgSrc, 'alt': query + ' Still Img', 'id':'still-img-' + [i]});
             $('#img-row').append(stillImg);
         }
-        console.log(res.data);
     });
 });
+
+$('#img-row').on('click', '[id*="-img-"]', function () {
+    $this = $(this);
+    toggleImg($this);
+})

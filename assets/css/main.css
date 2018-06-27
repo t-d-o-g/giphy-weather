@@ -5,6 +5,12 @@ body {
 main {
   margin: 5%; }
 
+img {
+  margin: 1rem; }
+
+img:hover {
+  cursor: pointer; }
+
 .page-header {
   height: 100%; }
 
@@ -22,9 +28,6 @@ main {
 
 .btn:active {
   cursor: pointer; }
-
-.still-img {
-  margin: 1rem; }
 
 @media (min-width: 300px) {
   .btn-font-size {
