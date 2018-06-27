@@ -38,6 +38,14 @@ img:hover {
     cursor: pointer;
 }
 
+#search-input {
+    display: none;
+}
+
+#submit-btn {
+    display: none;
+}
+
 // Small devices (landscape phones, 300px and up)
 @media (min-width: 300px) {
     .btn-font-size {

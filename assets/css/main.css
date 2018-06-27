@@ -29,6 +29,12 @@ img:hover {
 .btn:active {
   cursor: pointer; }
 
+#search-input {
+  display: none; }
+
+#submit-btn {
+  display: none; }
+
 @media (min-width: 300px) {
   .btn-font-size {
     font-size: 18px; } }
