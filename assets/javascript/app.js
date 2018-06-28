@@ -1,15 +1,45 @@
-var weatherIcons = {
-    "Clear Day": '',
-    "Clear Night": '',
-    "Partly Cloudy Day": '',
-    "Partly Cloudy Night": '',
-    "Cloudy": '',
-    "Rain": '',
-    "Sleet": '',
-    "Snow": '',
-    "Wind": '',
-    "Fog": ''
-}, weatherBtn, rowNum, btnInRow, re, imgKey, query, stillSrcArr = [], gifSrcArr = [], apiKey = 'HcEkdzj7Hh7PCuX8qumUU5zJE06iNKTw';
+var weatherConditions = {
+    clearDay: {
+        name: 'Clear Day',
+        img: undefined 
+    },
+    clearNight: {
+        name: 'Clear Night',
+        img: undefined 
+    },
+    clearCloudyDay: {
+        name: 'Clear Cloudy Day',
+        img: undefined 
+    },
+    partlyCloudyNight: {
+        name: 'Partly Cloudy Night',
+        img: undefined 
+    },
+    cloudy: {
+        name: 'Cloudy',
+        img: undefined 
+    },
+    rain:  {
+        name: 'Rain',
+        img: undefined 
+    },
+    sleet: {
+        name: 'Sleet',
+        img: undefined 
+    }, 
+    snow: {
+        name: 'Snow',
+        img: undefined 
+    },
+    wind: {
+        name: 'Wind',
+        img: undefined 
+    },
+    fog: {
+        name: 'Fog',
+        img: undefined 
+    }
+}, weatherBtn, rowNum, btnInRow, re, imgKey, query, selectedImg, stillSrcArr = [], gifSrcArr = [], apiKey = 'HcEkdzj7Hh7PCuX8qumUU5zJE06iNKTw';
 
 screenWidth = $(window).width();
 if (screenWidth < 500) {
@@ -23,10 +53,10 @@ if (screenWidth < 500) {
 }
 
 var counter = 0;
-for (var key in weatherIcons) {
+for (var key in weatherConditions) {
     rowNum = (counter  - (counter % btnInRow))/btnInRow;
     weatherBtn = $('<button>').addClass('btn btn-secondary btn-font-size weather-btn');
-    weatherBtn.text(key);
+    weatherBtn.text(weatherConditions[key].name);
     $('#btn-row-' + rowNum).append(weatherBtn);
     counter++;
 }
@@ -81,6 +111,7 @@ $('#submit-search-btn').on('click', function () {
 $('.weather-btn').on('click', function () {
     $this = $(this);
     $this.blur();
+    selectedImgKey = $this.text().charAt(0).toLowerCase() + $this.text().replace(/\s/g, '').slice(1);
     query = $this.text() + ' Weather';
 
     $('#search-copy').text('Choose your favorite ' + query.toLowerCase() + ' gif.');
@@ -88,28 +119,36 @@ $('.weather-btn').on('click', function () {
     $('#search-input').val('');
     $('#search-input').attr('placeholder', query);
     $('#submit-search-btn').show();
-    $('#select-gif-btn').show();
 
-    $('#img-row').empty();
+    if (weatherConditions[selectedImgKey].img === undefined) {
+        $('#select-gif-btn').show();
+        $('#img-row').empty();
 
-    $.ajax({
-        url: 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + query + '&limit=10&offset=0&rating=G&lang=en',
-        method: 'GET' 
-    }).then(function (res) {
-        var stillImgSrc, gifSrc, stillImg;
-        stillSrcArr = [], gifSrcArr = [];
+        $.ajax({
+            url: 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + query + '&limit=10&offset=0&rating=G&lang=en',
+            method: 'GET' 
+        }).then(function (res) {
+            var stillImgSrc, gifSrc, stillImg;
+            stillSrcArr = [], gifSrcArr = [];
 
-        for (var i = 0; i < res.data.length; i++) {
-            stillImgSrc = res.data[i].images.fixed_height_small_still.url;
-            gifSrc = res.data[i].images.fixed_height_small.url;
+            for (var i = 0; i < res.data.length; i++) {
+                stillImgSrc = res.data[i].images.fixed_height_small_still.url;
+                gifSrc = res.data[i].images.fixed_height_small.url;
 
-            stillSrcArr.push(stillImgSrc);
-            gifSrcArr.push(gifSrc);
+                stillSrcArr.push(stillImgSrc);
+                gifSrcArr.push(gifSrc);
 
-            stillImg = $('<img>').attr({'src': stillImgSrc, 'alt': query + ' Still Img', 'id':'still-img-' + [i]});
-            $('#img-row').append(stillImg);
-        }
-    });
+                stillImg = $('<img>').attr({'src': stillImgSrc, 'alt': query + ' Still Img', 'id':'still-img-' + [i]});
+                $('#img-row').append(stillImg);
+            }
+        });
+    } else {
+        var selectedGif = $(weatherConditions[selectedImgKey].img);
+
+        $('#img-row').empty();
+        $('#select-gif-btn').hide();
+        $('#img-row').append(selectedGif);
+    }
 });
 
 $('#img-row').on('click', '[id*="-img-"]', function () {
@@ -118,8 +157,7 @@ $('#img-row').on('click', '[id*="-img-"]', function () {
 });
 
 $('#select-gif-btn').on('click', function () {
-    weatherIcons[query] = $this;
-    console.log(weatherIcons);
+    weatherConditions[selectedImgKey].img = $this;
     var stills = $('[id^="still-img-"]');
     var gifs = $('[id^="gif-img-"]');
 
