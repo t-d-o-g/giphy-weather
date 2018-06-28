@@ -1,5 +1,3 @@
-//darksky-key = 402f7c1f1f1e88f16325562fad349ab9
-//gify-key = HcEkdzj7Hh7PCuX8qumUU5zJE06iNKTw
 var weatherIcons = {
     "Clear Day": '',
     "Clear Night": '',
@@ -36,6 +34,13 @@ for (var key in weatherIcons) {
 function selectedGif (img) {
     var imgNum = img.attr('id').match(/\d+/)[0];
     var imgType = img.attr('id').substr(0, img.attr('id').indexOf('-'));
+    var gifs = $('[id^="gif-img-"]');
+
+    if (gifs.length > 0) {
+        var gifNum = $(gifs[0]).attr('id').match(/\d+/)[0];
+        $(gifs[0]).attr('id', 'still-img-' + gifNum)
+        $(gifs[0]).attr('src', stillSrcArr[gifNum]);
+    }
 
     if (imgType === 'still') {
         img.attr('id', 'gif-img-' + imgNum)
@@ -46,10 +51,13 @@ function selectedGif (img) {
     }
 }
 
-$('#submit-btn').on('click', function () {
-    query = $('#search-input').val();
+$('#submit-search-btn').on('click', function () {
+    if ($('#search-input').val() !== '' ) {
+        query = $('#search-input').val();
+    }
 
     $('#img-row').empty();
+    $('#select-gif-btn').show();
     $.ajax({
         url: 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + query + '&limit=10&offset=0&rating=G&lang=en',
         method: 'GET' 
@@ -77,7 +85,10 @@ $('.weather-btn').on('click', function () {
 
     $('#search-copy').text('Choose your favorite ' + query.toLowerCase() + ' gif.');
     $('#search-input').show();
-    $('#submit-btn').show();
+    $('#search-input').val('');
+    $('#search-input').attr('placeholder', query);
+    $('#submit-search-btn').show();
+    $('#select-gif-btn').show();
 
     $('#img-row').empty();
 
@@ -104,10 +115,17 @@ $('.weather-btn').on('click', function () {
 $('#img-row').on('click', '[id*="-img-"]', function () {
     $this = $(this);
     selectedGif($this);
+});
 
-    // Only 1 gif should be active at at time
-})
+$('#select-gif-btn').on('click', function () {
+    weatherIcons[query] = $this;
+    console.log(weatherIcons);
+    var stills = $('[id^="still-img-"]');
 
-// Add Submit button to assign gif to weather 
-// weatherIcons[query] = $this;
-// console.log(weatherIcons);
+    if (stills.length > 0) {
+        for (var i = 0; i < stills.length; i++) {
+            $(stills[i]).hide();
+        }
+        $('#select-gif-btn').hide();
+    }
+});
