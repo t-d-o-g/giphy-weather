@@ -81,7 +81,7 @@ $('#submit-search-btn').on('click', function () {
 $('.weather-btn').on('click', function () {
     $this = $(this);
     $this.blur();
-    query = $this.text();
+    query = $this.text() + ' Weather';
 
     $('#search-copy').text('Choose your favorite ' + query.toLowerCase() + ' gif.');
     $('#search-input').show();
