@@ -121,8 +121,9 @@ $('#select-gif-btn').on('click', function () {
     weatherIcons[query] = $this;
     console.log(weatherIcons);
     var stills = $('[id^="still-img-"]');
+    var gifs = $('[id^="gif-img-"]');
 
-    if (stills.length > 0) {
+    if (gifs.length > 0) {
         for (var i = 0; i < stills.length; i++) {
             $(stills[i]).hide();
         }
